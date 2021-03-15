@@ -1,0 +1,8 @@
+### JetBrains
+.idea
+.idea/*
+**/.idea/**
+
+###> symfony/framework-bundle ###
+/vendor/
+###< symfony/framework-bundle ###

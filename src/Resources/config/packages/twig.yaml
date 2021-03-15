@@ -1,0 +1,16 @@
+twig:
+  default_path: '%kernel.project_dir%/templates'
+  debug: '%kernel.debug%'
+  strict_variables: '%kernel.debug%'
+  globals:
+    locale: '%locale%'
+    locales: '%locales%'
+    default_locale: "%locale%"
+
+services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  Twig\Extra\Intl\IntlExtension: ~
