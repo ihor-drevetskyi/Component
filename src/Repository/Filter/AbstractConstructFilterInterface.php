@@ -10,6 +10,11 @@ namespace ComponentBundle\Repository\Filter;
 interface AbstractConstructFilterInterface
 {
     /**
+     * @return string|null
+     */
+    public function getLocale(): ?string;
+
+    /**
      * @return bool
      */
     public function isUsePositionSort(): bool;
@@ -28,6 +33,11 @@ interface AbstractConstructFilterInterface
      * @return bool
      */
     public function isUsePublishAtCondition(): bool;
+
+    /**
+     * @param string|null $locale
+     */
+    public function setLocale(?string $locale): void;
 
     /**
      * @return bool

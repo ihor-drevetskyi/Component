@@ -18,10 +18,11 @@ interface AbstractElementRepositoryInterface extends AbstractRepositoryInterface
     public function findElementsByIdsIndexById(array $ids): array;
 
     /**
+     * @param string|null $locale
      * @param bool $is_reset
      * @return QueryBuilder
      */
-    public function getQueryBuilderForList(bool $is_reset = true): QueryBuilder;
+    public function getQueryBuilderForList(?string $locale = null, bool $is_reset = true): QueryBuilder;
 
     /**
      * @param bool $is_reset

@@ -64,13 +64,15 @@ abstract class AbstractElementRepository extends AbstractRepository implements A
     }
 
     /**
+     * @param string|null $locale
      * @param bool $is_reset
      * @return QueryBuilder
      */
-    public function getQueryBuilderForList(bool $is_reset = true): QueryBuilder
+    public function getQueryBuilderForList(?string $locale = null, bool $is_reset = true): QueryBuilder
     {
         $construct_filter = $this->getConstructFilter();
         $construct_filter->setReset($is_reset);
+        $construct_filter->setLocale($locale);
         $construct_filter->setUseLocaleCondition(true);
         $construct_filter->setUsePositionSort(true);
         $construct_filter->setUseShowOnWebsiteCondition(true);

@@ -10,6 +10,11 @@ namespace ComponentBundle\Repository\Filter;
 abstract class AbstractConstructFilter implements AbstractConstructFilterInterface
 {
     /**
+     * @var string|null
+     */
+    protected ?string $locale = null;
+
+    /**
      * @var bool
      */
     protected bool $use_position_sort = false;
@@ -33,6 +38,14 @@ abstract class AbstractConstructFilter implements AbstractConstructFilterInterfa
      * @var bool
      */
     protected bool $use_show_on_website_condition = false;
+
+    /**
+     * @return string|null
+     */
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
 
     /**
      * @return bool
@@ -64,6 +77,14 @@ abstract class AbstractConstructFilter implements AbstractConstructFilterInterfa
     public function isUsePublishAtCondition(): bool
     {
         return $this->use_publish_at_condition;
+    }
+
+    /**
+     * @param string|null $locale
+     */
+    public function setLocale(?string $locale): void
+    {
+        $this->locale = $locale;
     }
 
     /**

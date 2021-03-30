@@ -455,7 +455,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
         }
 
         if ($construct_filter->isUseLocaleCondition()) {
-            $this->addLocaleWhereCondition($query_builder);
+            $this->addLocaleWhereCondition($query_builder, null, $construct_filter->getLocale());
         }
 
         if ($construct_filter->isUseShowOnWebsiteCondition()) {
