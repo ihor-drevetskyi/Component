@@ -92,7 +92,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
         ?string $alias = null,
         ?string $locale = null
     ): void {
-        if (!($this->request instanceof Request)) {
+        if (!($this->request instanceof Request) && !$locale) {
             return;
         }
 
