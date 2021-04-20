@@ -4,8 +4,10 @@ namespace ComponentBundle\Repository;
 
 use DateTime;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\QueryException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Mapping\MappingException;
@@ -66,7 +68,8 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
     }
 
     /**
-     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function flush(): void
     {
@@ -80,6 +83,14 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
     {
         $this->resetWhereConditions();
         $this->extra_relations = [];
+    }
+
+    /**
+     *
+     */
+    public function resetWhereConditions(): void
+    {
+        $this->where_conditions = [];
     }
 
     /**
@@ -153,14 +164,6 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
             $this->extra_relations[] = $relation;
         }
     }
-    
-    /**
-     *
-     */
-    public function resetWhereConditions(): void
-    {
-        $this->where_conditions = [];
-    }
 
     /**
      * Общая часть запроса для всех других запросов
@@ -186,6 +189,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
     /**
      * @param string $class_name
      * @return string
+     * @throws MappingException
      */
     protected function getAlias(string $class_name): string
     {
@@ -214,6 +218,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
 
     /**
      * @param ResourceInterface $resource
+     * @throws ORMException
      */
     public function refresh(ResourceInterface $resource): void
     {
@@ -414,6 +419,8 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
     /**
      * @param ResourceInterface $resource
      * @param bool $and_flush Whether to flush the changes (default true)
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function persist(ResourceInterface $resource, bool $and_flush = true): void
     {
@@ -422,10 +429,12 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
             $this->_em->flush();
         }
     }
-    
+
     /**
      * @param ResourceInterface $resource
      * @param bool $and_flush Whether to flush the changes (default true)
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function remove(ResourceInterface $resource, bool $and_flush = true): void
     {

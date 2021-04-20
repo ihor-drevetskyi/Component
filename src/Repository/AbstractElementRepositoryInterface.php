@@ -18,13 +18,6 @@ interface AbstractElementRepositoryInterface extends AbstractRepositoryInterface
     public function findElementsByIdsIndexById(array $ids): array;
 
     /**
-     * @param string|null $locale
-     * @param bool $is_reset
-     * @return QueryBuilder
-     */
-    public function getQueryBuilderForList(?string $locale = null, bool $is_reset = true): QueryBuilder;
-
-    /**
      * @param bool $is_reset
      * @return QueryBuilder
      */
@@ -35,4 +28,11 @@ interface AbstractElementRepositoryInterface extends AbstractRepositoryInterface
      * @return object|null
      */
     public function findElementByIdForDashboardEditOrDeleteFormAction($id): ?object;
+
+    /**
+     * @param string|null $locale
+     * @param bool $is_reset
+     * @return QueryBuilder
+     */
+    public function getQueryBuilderForList(?string $locale = null, bool $is_reset = true): QueryBuilder;
 }

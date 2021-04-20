@@ -2,6 +2,7 @@
 
 namespace ComponentBundle\EventListener;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -18,17 +19,17 @@ final class LocaleListener implements EventSubscriberInterface
     /**
      * @var string|null
      */
-    protected ?string $default_locale;
+    protected ?string $default_locale = null;
 
     /**
      * @var string|null
      */
-    protected ?string $current_locale;
+    protected ?string $current_locale = null;
 
     /**
      * @var array|null
      */
-    protected ?array $available_locales;
+    protected ?array $available_locales = [];
 
     /**
      * LocaleListener constructor.
@@ -36,9 +37,14 @@ final class LocaleListener implements EventSubscriberInterface
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->current_locale = $container->getParameter('locale');
-        $this->default_locale = $container->getParameter('locale');
-        $this->available_locales = $container->getParameter('locales');
+        if ($container->hasParameter('locale')) {
+            $this->current_locale = $container->getParameter('locale');
+            $this->default_locale = $container->getParameter('locale');
+        }
+
+        if ($container->hasParameter('locales')) {
+            $this->available_locales = $container->getParameter('locales');
+        }
     }
 
     /**
@@ -71,10 +77,10 @@ final class LocaleListener implements EventSubscriberInterface
             $locale = $request->headers->get('X-LOCALE');
             if (in_array($locale, $this->available_locales)) {
                 $request->setLocale($locale);
-            } else {
+            } elseif ($this->default_locale) {
                 $request->setLocale($this->default_locale);
             }
-        } else {
+        } elseif ($this->default_locale) {
             $request->setLocale($this->default_locale);
         }
 
@@ -84,9 +90,9 @@ final class LocaleListener implements EventSubscriberInterface
 
     /**
      * @param ResponseEvent $event
-     * @return mixed
+     * @return Response
      */
-    public function setContentLanguage(ResponseEvent $event)
+    public function setContentLanguage(ResponseEvent $event): Response
     {
         $response = $event->getResponse();
 

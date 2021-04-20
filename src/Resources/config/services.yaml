@@ -16,7 +16,30 @@ services:
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
   ComponentBundle\EventListener\LocaleListener:
+    arguments: ['@service_container']
     tags:
-      - { name: kernel.event_listenert }
+      - { name: kernel.event_listener }
 
-  Twig\Extra\Intl\IntlExtension: null
+  ComponentBundle\Event\FormEvent:
+    lazy: true
+
+  ComponentBundle\Event\WebsiteEvent:
+    lazy: true
+
+  ComponentBundle\Factory\FactoryInterface:
+    lazy: true
+
+  ComponentBundle\Helper\RequestHelperInterface:
+    lazy: true
+
+  ComponentBundle\Generator\RandomnessGeneratorInterface:
+    lazy: true
+
+  ComponentBundle\Repository\AbstractRepositoryInterface:
+    lazy: true
+
+  ComponentBundle\Service\AbstractElementLinksServiceInterface:
+    lazy: true
+
+  ComponentBundle\Repository\AbstractElementRepositoryInterface:
+    lazy: true

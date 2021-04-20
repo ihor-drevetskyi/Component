@@ -5,6 +5,7 @@ doctrine:
     connections:
       default:
         driver: 'pdo_mysql'
+        override_url: true
         url: '%env(resolve:DATABASE_URL)%'
         server_version: '%env(DATABASE_SERVER_VERSION)%'
         charset: utf8mb4
