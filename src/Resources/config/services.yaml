@@ -23,23 +23,20 @@ services:
   ComponentBundle\Event\FormEvent:
     lazy: true
 
+  ComponentBundle\Factory\Factory:
+    lazy: true
+
   ComponentBundle\Event\WebsiteEvent:
     lazy: true
 
-  ComponentBundle\Factory\FactoryInterface:
+  ComponentBundle\Helper\RequestHelper:
     lazy: true
 
-  ComponentBundle\Helper\RequestHelperInterface:
+  ComponentBundle\Generator\RandomnessGenerator:
     lazy: true
 
-  ComponentBundle\Generator\RandomnessGeneratorInterface:
+  ComponentBundle\Repository\AbstractRepository:
     lazy: true
 
-  ComponentBundle\Repository\AbstractRepositoryInterface:
-    lazy: true
-
-  ComponentBundle\Service\AbstractElementLinksServiceInterface:
-    lazy: true
-
-  ComponentBundle\Repository\AbstractElementRepositoryInterface:
+  ComponentBundle\Repository\AbstractElementRepository:
     lazy: true
