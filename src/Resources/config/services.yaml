@@ -34,9 +34,3 @@ services:
 
   ComponentBundle\Generator\RandomnessGenerator:
     lazy: true
-
-  ComponentBundle\Repository\AbstractRepository:
-    lazy: true
-
-  ComponentBundle\Repository\AbstractElementRepository:
-    lazy: true
