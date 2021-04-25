@@ -387,15 +387,26 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
 
         return $query_builder;
     }
-    
+
     /**
      * @param QueryBuilder $query_builder
+     * @param bool $use_cache
+     * @param int $lifetime
      * @return object|null
      */
-    protected function getOneOrNullResult(QueryBuilder $query_builder): ?object
+    protected function getOneOrNullResult(
+        QueryBuilder $query_builder,
+        bool $use_cache = false,
+        int $lifetime = 3600
+    ): ?object
     {
         try {
-            $result = $this->getQuery($query_builder)->getOneOrNullResult();
+            $query = $this->getQuery($query_builder);
+            if ($use_cache) {
+                $query->enableResultCache($lifetime);
+            }
+
+            $result = $query->getOneOrNullResult();
             $this->reset();
 
             return $result;

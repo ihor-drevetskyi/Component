@@ -26,3 +26,4 @@ framework:
     enable_annotations: true
   cache:
     prefix_seed: '%env(PROJECT_SYSTEM_NAME)%'
+  http_cache: true
