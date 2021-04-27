@@ -43,9 +43,6 @@ abstract class AbstractLinksService
         RequestHelperInterface $request_helper
     )
     {
-        dump($router);
-        dump($container);
-        dump($request_helper);
         $this->router = $router;
         $this->container = $container;
         $this->request_helper = $request_helper;
