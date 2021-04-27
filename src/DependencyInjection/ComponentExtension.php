@@ -39,6 +39,10 @@ final class ComponentExtension extends Extension implements PrependExtensionInte
             $loader->load('doctrine.yaml');
         }
 
+        if (isset($bundles['MobileDetectBundle'])) {
+            $loader->load('mobile_detect.yaml');
+        }
+
         if (isset($bundles['VichUploaderBundle'])) {
             $loader->load('vich_uploader.yaml');
         }

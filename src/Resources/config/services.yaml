@@ -34,3 +34,17 @@ services:
 
   ComponentBundle\Generator\RandomnessGenerator:
     lazy: true
+
+  # паблик алиасы для детект сервисов чтоб определять текущий view
+
+  ComponentBundle\Helper\DeviceView:
+    alias: 'mobile_detect.device_view'
+    public: true
+
+  ComponentBundle\Service\MobileDetector:
+    arguments: ['@ComponentBundle\Helper\DeviceView', '@service_container']
+    lazy: true
+
+  SunCat\MobileDetectBundle\DeviceDetector\MobileDetector:
+    alias: 'mobile_detect.mobile_detector'
+    public: true
