@@ -18,7 +18,7 @@ trait SlugTrait
     /**
      * @var string|null
      * @Assert\Length(max="255")
-     * @ORM\Column(name="slug", type="string", length=255, nullable=false, unique=false)
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true, unique=false)
      */
     protected ?string $slug = null;
 }
