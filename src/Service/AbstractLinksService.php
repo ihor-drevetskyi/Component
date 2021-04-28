@@ -2,7 +2,9 @@
 
 namespace ComponentBundle\Service;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use ComponentBundle\Helper\RequestHelperInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,6 +18,11 @@ use ComponentBundle\Entity\Translatable\AbstractBaseEntityTranslatableInterface;
  */
 abstract class AbstractLinksService
 {
+    /**
+     * @var Request|null
+     */
+    protected ?Request $request;
+
     /**
      * @var RouterInterface
      */
@@ -34,18 +41,20 @@ abstract class AbstractLinksService
     /**
      * AbstractLinksService constructor.
      * @param RouterInterface $router
+     * @param RequestStack $request_stack
      * @param ContainerInterface $container
      * @param RequestHelperInterface $request_helper
      */
     public function __construct(
         RouterInterface $router,
+        RequestStack $request_stack,
         ContainerInterface $container,
         RequestHelperInterface $request_helper
-    )
-    {
+    ) {
         $this->router = $router;
         $this->container = $container;
         $this->request_helper = $request_helper;
+        $this->request = $request_stack->getCurrentRequest();
     }
 
     /**

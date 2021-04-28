@@ -2,7 +2,6 @@
 
 namespace ComponentBundle\Service;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ComponentBundle\Entity\Translatable\AbstractEntityElementInterface;
@@ -37,14 +36,12 @@ interface AbstractElementLinksServiceInterface
     ): string;
 
     /**
-     * @param Request $request
      * @param AbstractEntityElementInterface $element
      * @param int|null $count
      * @param int|null $page
      * @return string|RedirectResponse
      */
     public function getElementLinkForHelperForItemAction(
-        Request $request,
         AbstractEntityElementInterface $element,
         ?int $count = null,
         ?int $page = null
@@ -57,12 +54,11 @@ interface AbstractElementLinksServiceInterface
     public function responseLinkForListAction(?int $page = null): array;
 
     /**
-     * @param Request $request
-     * @param int $count
-     * @param int $page
-     * @return string|RedirectResponse
+     * @param int|null $count
+     * @param int|null $page
+     * @return mixed
      */
-    public function getListLinkForHelperForListAction(Request $request, int $count, int $page = 1);
+    public function getListLinkForHelperForListAction(?int $count = null, ?int $page = 1);
 
     /**
      * @param AbstractEntityElementInterface $element

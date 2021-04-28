@@ -2,7 +2,6 @@
 
 namespace ComponentBundle\Service;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -17,29 +16,27 @@ abstract class AbstractListAndElementLinksService extends AbstractLinksService i
     AbstractElementLinksServiceInterface
 {
     /**
-     * @param Request $request
      * @param AbstractEntityElementInterface $element
      * @param int|null $count
      * @param int|null $page
      * @return string|RedirectResponse
      */
     public function getElementLinkForHelperForItemAction(
-        Request $request,
         AbstractEntityElementInterface $element,
         ?int $count = null,
         ?int $page = null
     )
     {
         if ($count && $page) {
-            if ($request->query->has('page')) {
+            if ($this->request->query->has('page')) {
                 return $this->redirect(
                     $this->getLink($element, [
-                        'page' => $request->query->get('page'),
+                        'page' => $this->request->query->get('page'),
                         'count' => $count
                     ], UrlGeneratorInterface::ABSOLUTE_URL));
-            } elseif ($request->get('page') == 1 && is_string($request->get('page'))) {
+            } elseif ($this->request->get('page') == 1 && is_string($this->request->get('page'))) {
                 return $this->redirect($this->getLink($element, [
-                    'page' => $request->get('page'),
+                    'page' => $this->request->get('page'),
                     'count' => $count
                 ], UrlGeneratorInterface::ABSOLUTE_URL));
             }
@@ -104,12 +101,11 @@ abstract class AbstractListAndElementLinksService extends AbstractLinksService i
     }
 
     /**
-     * @param Request $request
-     * @param int $count
-     * @param int $page
-     * @return string|RedirectResponse
+     * @param int|null $count
+     * @param int|null $page
+     * @return mixed|string|RedirectResponse
      */
-    public function getListLinkForHelperForListAction(Request $request, int $count, int $page = 1)
+    public function getListLinkForHelperForListAction(?int $count = null, ?int $page = 1)
     {
         $list_link = $this->getListLink([
             'page' => $page,
@@ -118,14 +114,14 @@ abstract class AbstractListAndElementLinksService extends AbstractLinksService i
 
         if ($this->request_helper->getCurrentUrl() != $list_link) {
             return $this->redirect($list_link);
-        } elseif ($request->query->has('page')) {
+        } elseif ($this->request->query->has('page')) {
             return $this->redirect($this->getListLink([
-                'page' => $request->query->get('page'),
+                'page' => $this->request->query->get('page'),
                 'count' => $count
             ], UrlGeneratorInterface::ABSOLUTE_URL));
-        } elseif ($request->get('page') == 1 && is_string($request->get('page'))) {
+        } elseif ($this->request->get('page') == 1 && is_string($this->request->get('page'))) {
             return $this->redirect($this->getListLink([
-                'page' => $request->get('page'),
+                'page' => $this->request->get('page'),
                 'count' => $count
             ], UrlGeneratorInterface::ABSOLUTE_URL));
         }
