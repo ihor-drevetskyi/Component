@@ -7,6 +7,5 @@ parameters:
   locale: 'uk'
   locales: [ '%locale%', 'ru', 'en' ]
   app_locales: '%locale%|ru|en'
-  memcached.servers:
-    - 'memcached://127.0.0.1:11211'
+  use_memcached: '%env(bool:USE_MEMCACHED)%'
   memcached.config: { distribution: 'consistent', compression: true }

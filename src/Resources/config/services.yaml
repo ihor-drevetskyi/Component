@@ -18,7 +18,7 @@ services:
   memcached:
     class: Memcached
     factory: Symfony\Component\Cache\Adapter\MemcachedAdapter::createConnection
-    arguments: ['%memcached.servers%', '%memcached.config%']
+    arguments: ['%env(MEMCACHED_SERVERS)%', '%memcached.config%']
 
   ComponentBundle\EventListener\LocaleListener:
     arguments: ['@service_container']

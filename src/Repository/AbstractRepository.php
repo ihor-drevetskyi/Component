@@ -403,6 +403,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
         try {
             $query = $this->getQuery($query_builder);
             if ($use_cache) {
+                $query->setCacheable(true);
                 $query->enableResultCache($lifetime);
             }
 

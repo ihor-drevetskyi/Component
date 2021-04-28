@@ -15,8 +15,8 @@ framework:
   cache:
     pools:
       doctrine_cache_adapter:
-        adapter: 'cache.adapter.memcached'
-#        adapter: 'cache.adapter.array'
+#        adapter: 'cache.adapter.memcached'
+        adapter: 'cache.adapter.array'
 
 #      doctrine.result_cache_pool:
 #        adapter: cache.app
