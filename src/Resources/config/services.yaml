@@ -15,6 +15,11 @@ services:
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
+  memcached:
+    class: Memcached
+    factory: Symfony\Component\Cache\Adapter\MemcachedAdapter::createConnection
+    arguments: ['%memcached.servers%', '%memcached.config%']
+
   ComponentBundle\EventListener\LocaleListener:
     arguments: ['@service_container']
     tags:
